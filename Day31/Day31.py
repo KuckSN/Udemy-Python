@@ -32,7 +32,7 @@ def flip_card():
     canvas.itemconfig(card_text, text=current_card["English"], fill="white")
     canvas.itemconfig(card_background, image=card_back_img)
 
-# ----------------------- NEXT CARD -------------------------------
+# ----------------------- KNOWN CARD -------------------------------
 def is_known():
     to_learn.remove(current_card)
     data = pandas.DataFrame(to_learn)
