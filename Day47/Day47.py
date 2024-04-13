@@ -25,7 +25,7 @@ print(title)
 BUY_PRICE = 200
 
 if price_as_float < BUY_PRICE:
-    message = f"{title} is now {price}" 
+    message = f"{title} is now {price_as_float}" 
 
     with smtplib.SMTP("smtp.mail.yahoo.com", port=587) as connection:
         connection.starttls()
