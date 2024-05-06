@@ -42,7 +42,6 @@ class CreatePostForm(FlaskForm):
     subtitle = StringField("Subtitle", validators=[DataRequired()])
     name = StringField("Your Name", validators=[DataRequired()])
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    author = StringField("Author", validators=[DataRequired()])
     body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
@@ -60,7 +59,7 @@ def show_post(post_id):
 
 
 # TODO: add_new_post() to create a new blog post
-@app.route('new-post', methods=['GET', 'POST'])
+@app.route('/new-post', methods=['GET', 'POST'])
 def add_new_post():
     form = CreatePostForm()
     if form.validate_on_submit():
@@ -69,7 +68,7 @@ def add_new_post():
             subtitle = form.subtitle.data,
             date = date.today().strftime("%B %d, %Y"),
             body = form.body.data,
-            author = form.author.data,
+            author = form.name.data,
             img_url = form.img_url.data
         )
         db.session.add(new_post)
@@ -93,21 +92,21 @@ def edit_post(post_id):
         post.title = edit_form.title.data
         post.subtitle = edit_form.subtitle.data
         post.img_url = edit_form.img_url.data
-        post.author = edit_form.author.data
+        post.author = edit_form.name.data
         post.body = edit_form.body.data    
         db.session.commit()
-        return redirect(url_for('show_post'), post_id=post.id)
+        return redirect(url_for('show_post', post_id=post.id))
 
     return render_template("make-post.html", form=edit_form, is_edit=True)
 
 
 # TODO: delete_post() to remove a blog post from the database
-@app.route('/delete/<int:post_id>')
+@app.route("/delete/<int:post_id>")
 def delete_post(post_id):
     post_to_delete = db.get_or_404(BlogPost, post_id)
     db.session.delete(post_to_delete)
     db.session.commit()
-    return render_template(url_for("get_all_posts"))
+    return redirect(url_for('get_all_posts'))
 
 # Below is the code from previous lessons. No changes needed.
 @app.route("/about")
