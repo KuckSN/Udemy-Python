@@ -32,6 +32,10 @@
           Posted by
           <a href="#">{{post.author}}</a>
           on {{post.date}}
+<<<<<<< HEAD
+=======
+          <a href="{{ url_for('delete_post', post_id = post.id) }}">✘</a>
+>>>>>>> 5bab02925068507a49674f495cf4e28c52f8ec36
         </p>
       </div>
       <!-- Divider-->
@@ -40,10 +44,17 @@
 
       <!-- New Post -->
       <div class="d-flex justify-content-end mb-4">
+<<<<<<< HEAD
       <!-- TODO: Adding new posts -->
         <a
           class="btn btn-primary float-right"
           href="TODO: add code to add_new_post here"
+=======
+        <!-- TODO: Adding new posts -->
+        <a
+          class="btn btn-primary float-right"
+          href="{{ url_for('add_new_post') }}"
+>>>>>>> 5bab02925068507a49674f495cf4e28c52f8ec36
           >Create New Post</a
         >
       </div>
